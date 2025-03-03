@@ -16,7 +16,7 @@ import (
 	"imagestorage/internal/services/imageService"
 	"imagestorage/internal/storage/sqlite"
 
-	pb "imagestorage/contracts/gen/go/imageStorage"
+	pb "github.com/Chilibonitsu/protos/gen/go/imageStorage"
 
 	"imagestorage/internal/grpc/client"
 

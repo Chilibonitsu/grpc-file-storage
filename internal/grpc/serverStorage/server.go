@@ -2,13 +2,14 @@ package serverStorage
 
 import (
 	"context"
-	pb "imagestorage/contracts/gen/go/imageStorage"
 	"imagestorage/internal/storage/sqlite"
 	"imagestorage/internal/utils"
 	"io"
 	"os"
 	"path/filepath"
 	"time"
+
+	pb "github.com/Chilibonitsu/protos/gen/go/imageStorage"
 
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"

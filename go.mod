@@ -3,13 +3,13 @@ module imagestorage
 go 1.24.0
 
 require (
+	github.com/Chilibonitsu/protos v0.0.16
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/golang-migrate/migrate/v4 v4.18.2
 	github.com/joho/godotenv v1.5.1
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/sirupsen/logrus v1.9.3
 	google.golang.org/grpc v1.70.0
-	imagestorage/contracts v0.0.0-00010101000000-000000000000
 )
 
 require (

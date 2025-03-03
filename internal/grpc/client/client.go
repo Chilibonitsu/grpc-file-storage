@@ -3,10 +3,11 @@ package client
 import (
 	"context"
 	"fmt"
-	pb "imagestorage/contracts/gen/go/imageStorage"
 	"io"
 	"os"
 	"path/filepath"
+
+	pb "github.com/Chilibonitsu/protos/gen/go/imageStorage"
 
 	"google.golang.org/grpc"
 )
