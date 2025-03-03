@@ -2,12 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"strconv"
 	"syscall"
 
@@ -15,8 +12,6 @@ import (
 	"imagestorage/internal/config"
 	"imagestorage/internal/services/imageService"
 	"imagestorage/internal/storage/sqlite"
-
-	pb "github.com/Chilibonitsu/protos/gen/go/imageStorage"
 
 	"imagestorage/internal/grpc/client"
 
@@ -92,60 +87,6 @@ func main() {
 
 	<-stop
 
-}
-
-// conn, err := grpc.Dial("localhost:57030", grpc.WithInsecure(), grpc.WithBlock())
-// if err != nil {
-// 	log.Fatalf("Failed to connect to server: %v", err)
-// }
-// defer conn.Close()
-
-// client := pb.NewGuploadServiceClient(conn)
-
-// // Вызываем метод для скачивания изображения
-// fileName := "SDVM6zOYSik.jpg" // Имя файла, который хотим скачать
-// err = downloadImage(client, fileName)
-// if err != nil {
-// 	log.Fatalf("Failed to download image: %v", err)
-// }
-
-func downloadImage(client pb.GuploadServiceClient, fileName string) error {
-	// Создаем запрос на скачивание файла
-	req := &pb.DownloadRequest{
-		FileName: fileName,
-	}
-
-	// Вызываем метод Download на сервере
-	stream, err := client.Download(context.Background(), req)
-	if err != nil {
-		return fmt.Errorf("failed to call Download: %v", err)
-	}
-
-	// Создаем файл для сохранения изображения
-	outputPath := filepath.Join(os.Getenv("PATH_TO_SAVED_CLIENT"), fileName)
-	file, err := os.Create(outputPath)
-	if err != nil {
-		return fmt.Errorf("failed to create file: %v", err)
-	}
-	defer file.Close()
-
-	// Получаем данные от сервера и записываем их в файл
-	for {
-		chunk, err := stream.Recv()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			return fmt.Errorf("failed to receive chunk: %v", err)
-		}
-
-		_, err = file.Write(chunk.Content)
-		if err != nil {
-			return fmt.Errorf("failed to write chunk to file: %v", err)
-		}
-	}
-
-	return nil
 }
 
 func setupLogger(env string) *logrus.Logger {
